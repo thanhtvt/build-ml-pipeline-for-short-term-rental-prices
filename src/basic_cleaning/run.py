@@ -29,7 +29,7 @@ def go(args):
 
     # Drop duplicates
     logger.info("Dropping duplicate")
-    df.drop_duplicates(inplace=True, ignore_index=True)
+    df.drop_duplicates(inplace=True)
     # Drop outliers
     logger.info("Dropping outliers")
     df = df[df["price"].between(args.min_price, args.max_price)].reset_index(drop=True)
