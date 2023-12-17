@@ -33,11 +33,15 @@ def go(args):
     # Drop outliers
     logger.info("Dropping outliers")
     df = df[df["price"].between(args.min_price, args.max_price)].reset_index(drop=True)
+    # add for samples2
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
     # Convert last_review to datetime
     logger.info("Converting last review to datetime")
     df["last_review"] = pd.to_datetime(df.last_review)
     # Save cleaned dataframe to new artifact
     logger.info("Saving cleaned dataframe to new artifact.")
+
     df.to_csv("clean_sample.csv", index=False)
 
     artifact = wandb.Artifact(
